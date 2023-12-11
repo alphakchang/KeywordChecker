@@ -35,8 +35,11 @@ class App extends Component {
   formatKeywords = (keywordsInput) => {
     const parts = keywordsInput.split(/[,;\n]+/);
     const trimmedParts = parts.map(part => part.trim());
-    return trimmedParts;
+    // Use a Set to ensure uniqueness and then convert it back to an array
+    const uniqueParts = Array.from(new Set(trimmedParts));
+    return uniqueParts;
   }
+
 
   updateKeywords(e) {
     this.setState({ keywordsInput: e.target.value }, () => {
@@ -97,8 +100,8 @@ class App extends Component {
             <>
               <section>
                 <div className='container-lg'>
-                  <div className="row">
-                    <div className="col-4">
+                  <div className="row" id='counter-table'>
+                    <div className="col-4" id='keyword-section'>
                       <KeywordWindow updateKeywords={this.debouncedUpdateKeywords} />
                     </div>
 
