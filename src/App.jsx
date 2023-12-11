@@ -8,6 +8,7 @@ import KeywordWindow from './components/KeywordWindow/KeywordWindow';
 import ContentWindow from './components/ContentWindow/ContentWindow';
 import KeywordCounter from './components/KeywordCounter/KeywordCounter';
 import EnterContent from './components/EnterContent/EnterContent';
+import { Robot } from 'react-bootstrap-icons';
 
 const initialState = {
   keywords: [],
@@ -27,7 +28,7 @@ class App extends Component {
 
   checkHaveContent = () => {
     if (this.state.content) {
-      this.setState({haveContent: true});
+      this.setState({ haveContent: true });
     }
   }
 
@@ -64,15 +65,17 @@ class App extends Component {
   countKeywordOccurrences = () => {
     const { content, keywords } = this.state;
     let keywordCounts = {};
-  
+
     keywords.forEach(keyword => {
+      if (keyword.trim() === '') return;
+
       const regex = new RegExp(keyword, 'gi');
       const matches = content.match(regex);
       keywordCounts[keyword] = matches ? matches.length : 0;
     });
-  
+
     return keywordCounts;
-  };  
+  };
 
 
   render() {
@@ -86,29 +89,64 @@ class App extends Component {
         {
           !haveContent ? (
             <section>
-              <EnterContent updateContent={this.updateContent} checkHaveContent={this.checkHaveContent}/>
+              <div className='container-lg'>
+                <EnterContent updateContent={this.updateContent} checkHaveContent={this.checkHaveContent} />
+              </div>
             </section>
           ) : (
             <>
               <section>
-                <KeywordWindow updateKeywords={this.debouncedUpdateKeywords} />
-                <ContentWindow
-                  content={content}
-                  keywords={keywords}
-                  highlightKeywords={this.highlightKeywords}
-                />
+                <div className='container-lg'>
+                  <div className="row">
+                    <div className="col-4">
+                      <KeywordWindow updateKeywords={this.debouncedUpdateKeywords} />
+                    </div>
+
+                    <div className="col-8">
+                      <div className="row">
+                        <div className='d-flex justify-content-start align-items-center m-2'>
+                          <Robot />
+                          <span className='mx-1'>
+                            Keywords Counter
+                          </span>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-5 border rounded mx-1">
+                          Keyword
+                        </div>
+                        <div className="col-2 border rounded mx-1 text-center">
+                          Found
+                        </div>
+                        <div className="col-2 border rounded mx-1 text-center">
+                          Counts
+                        </div>
+                      </div>
+                      {keywords.map((keyword, index) => (
+                        <KeywordCounter key={index} keyword={keyword} count={keywordCounts[keyword]} />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-12">
+                      <ContentWindow
+                        content={content}
+                        keywords={keywords}
+                        highlightKeywords={this.highlightKeywords}
+                      />
+                    </div>
+                  </div>
+                </div>
               </section>
               <section>
-                {keywords.map((keyword, index) => (
-                  <KeywordCounter key={index} keyword={keyword} count={keywordCounts[keyword]}/>
-                ))}
               </section>
             </>
           )
         }
         <Footer />
       </>
-    );    
+    );
   }
 }
 

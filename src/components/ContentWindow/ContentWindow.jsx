@@ -11,7 +11,7 @@ const ContentWindow = ({ content, keywords, highlightKeywords }) => {
     return (
         <div
             dangerouslySetInnerHTML={{ __html: highlightedContent }}
-            className="content-preview"
+            className="content-preview border border-2 p-4 rounded"
         />
     );
 }
