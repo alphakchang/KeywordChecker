@@ -2,9 +2,13 @@ section {
   margin-top: 5rem;
 }
 
-.highlight {
+.highlight_matched {
   background-color: rgba(173, 255, 126, 0.699);
   color: rgb(20, 20, 20);
+}
+
+.highlight_partially_matched {
+  background-color: rgb(202, 148, 148);
 }
 
 .content-preview {
@@ -14,8 +18,13 @@ section {
   padding: 10px;
 }
 
-#counter-table {
-  height: 35h;
+.counter-table {
+  height: 25vh;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+/* shadow 3D effect */
+.box {
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
 }

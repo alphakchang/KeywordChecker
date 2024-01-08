@@ -1,3 +1,5 @@
+// Component not being used at the moment
+
 import React from 'react';
 import { HandThumbsUpFill, HandThumbsDown } from 'react-bootstrap-icons';
 

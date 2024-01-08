@@ -11,7 +11,7 @@ const KeywordWindow = ({ updateKeywords }) => {
                     {"Keywords (Separated by , or ; or linebreak)"}
                 </span>
             </div>
-            <textarea name="keywords" id="keywords" className="form-control" onChange={updateKeywords}></textarea>
+            <textarea name="keywords" id="keywords" className="form-control mx-2" onChange={updateKeywords}></textarea>
         </>
     );
 }
